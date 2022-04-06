@@ -1,0 +1,47 @@
+# NOTE: Please refer to https://aka.ms/azsdk/engsys/ci-yaml before editing this file.
+trigger:
+  branches:
+    include:
+      - main
+      - feature/*
+      - release/*
+      - hotfix/*
+  paths:
+    include:
+      - tools/pylint-extensions/pylint_custom_plugin
+
+pr:
+  branches:
+    include:
+      - main
+      - feature/*
+      - release/*
+      - hotfix/*
+  paths:
+    include:
+      - tools/pylint-extensions/pylint_custom_plugin
+
+extends:
+  template: /eng/pipelines/templates/stages/archetype-sdk-tool-python.yml
+  parameters:
+    PythonVersion: '3.10.2'
+    PackagePath: 'tools/pylint-extensions/pylint_custom_plugin'
+    FeedName: 'public/azure-sdk-for-python'
+    ArtifactName: 'azsdkpylintplugin'
+    PackageName: 'Azure SDK Pylint Plugin'
+    TestSteps:
+    - template: /eng/pipelines/templates/steps/use-python-version.yml
+      parameters:
+        versionSpec: '3.10.2'
+
+    - script: |
+        pip install -r dev_requirements.txt
+        pip install .
+      displayName: 'Install Test Requirements'
+      workingDirectory: $(Build.SourcesDirectory)/tools/pylint-extensions/pylint_custom_plugin
+
+    - script: |
+        pytest .
+      displayName: 'Test Python Linter'
+      workingDirectory: $(Build.SourcesDirectory)/tools/pylint-extensions/pylint_custom_plugin
+      continueOnError: true
