@@ -32,7 +32,7 @@ extends:
     TestSteps:
     - script: |
         pip install -r dev_requirements.txt
-        pip install .
+        pip install -e .
       displayName: 'Install Test Requirements'
       workingDirectory: $(Build.SourcesDirectory)/tools/pylint-extensions/pylint_guidelines_checker
 

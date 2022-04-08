@@ -8,8 +8,7 @@ import pylint.testutils
 
 from azure.core import PipelineClient
 from azure.core.configuration import Configuration
-from pylint_custom_plugin import pylint_guidelines_checker as checker
-
+import pylint_guidelines_checker as checker
 
 class TestClientMethodsHaveTracingDecorators(pylint.testutils.CheckerTestCase):
     CHECKER_CLASS = checker.ClientMethodsHaveTracingDecorators
