@@ -8,7 +8,7 @@ trigger:
       - hotfix/*
   paths:
     include:
-      - tools/pylint-extensions/pylint_custom_plugin
+      - tools/pylint-extensions/pylint_guidelines_checker
 
 pr:
   branches:
@@ -19,29 +19,32 @@ pr:
       - hotfix/*
   paths:
     include:
-      - tools/pylint-extensions/pylint_custom_plugin
+      - tools/pylint-extensions/pylint_guidelines_checker
+
+variables:
+  PythonVersion: "3.10"
 
 extends:
   template: /eng/pipelines/templates/stages/archetype-sdk-tool-python.yml
   parameters:
-    PythonVersion: '3.10.2'
-    PackagePath: 'tools/pylint-extensions/pylint_custom_plugin'
+    PythonVersion: $(PythonVersion)
+    PackagePath: 'tools/pylint-extensions/pylint_guidelines_checker'
     FeedName: 'public/azure-sdk-for-python'
     ArtifactName: 'azsdkpylintplugin'
     PackageName: 'Azure SDK Pylint Plugin'
     TestSteps:
     - template: /eng/pipelines/templates/steps/use-python-version.yml
       parameters:
-        versionSpec: '3.10.2'
+        versionSpec: $(PythonVersion)
 
     - script: |
         pip install -r dev_requirements.txt
         pip install .
       displayName: 'Install Test Requirements'
-      workingDirectory: $(Build.SourcesDirectory)/tools/pylint-extensions/pylint_custom_plugin
+      workingDirectory: $(Build.SourcesDirectory)/tools/pylint-extensions/pylint_guidelines_checker
 
     - script: |
         pytest .
       displayName: 'Test Python Linter'
-      workingDirectory: $(Build.SourcesDirectory)/tools/pylint-extensions/pylint_custom_plugin
+      workingDirectory: $(Build.SourcesDirectory)/tools/pylint-extensions/pylint_guidelines_checker
       continueOnError: true

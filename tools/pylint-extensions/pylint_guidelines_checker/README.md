@@ -1,11 +1,20 @@
-## Linting the Guidelines
+# Linting the Guidelines
 
-In order to lint for the guidelines, you must make sure you are using the pylintrc file.
+The code presented in this repository is a lift-and-shift of code [originally written by @kristapratico](https://github.com/Azure/azure-sdk-for-python/blob/7539fc3959553fa7d23c6f0e53ee45476cfd5ae2/scripts/pylint_custom_plugin/)
+
+## Running guidelines checks in Azure/azure-sdk-for-python repository
+
+In order to lint for the guidelines, you must make sure you are enabling the `pylint-guidelines-checker` in your pylint invocation. Using the rcfile at the [root of the repo](https://github.com/Azure/azure-sdk-for-python/blob/main/pylintrc) will ensure that the plugin is properly activated
+
 It is recommended you run pylint at the library package level to be consistent with how the CI runs pylint.
 
 Check that you are running pylint version >=2.5.2 and astroid version >=2.4.1.
 
-**How to run pylint locally using the pylintrc:**
+
+0. Install the pylint checker from the azure-sdk development feed.
+    ```bash
+    pip install --index-url="https://pkgs.dev.azure.com/azure-sdk/public/_packaging/azure-sdk-for-python/pypi/simple/" pylint-guidelines-checker
+    ```
 
 1. Run pylint at the root of the repo and it will automatically find the pylintrc:
     ```bash
@@ -28,8 +37,14 @@ Check that you are running pylint version >=2.5.2 and astroid version >=2.4.1.
     C:\azure-sdk-for-python\sdk\storage\azure-storage-blob>tox -c ../../../eng/tox/tox.ini -e lint
     ```
 5. If you use the pylint extension for VS code or Pycharm it *should* find the pylintrc automatically.
+6. Using the `tox` environment `lint` will make the entire above process automatic.
+    ```bash
+    pip install tox tox-monorepo
+    C:\azure-sdk-for-python\sdk\storage\azure-storage-blob>tox -e lint -c ../../../eng/tox/tox.ini
+    ```
 
-**How to disable a pylint error:**
+## How to disable a pylint error
+
 ```bash
 # pylint:disable=connection-string-should-not-be-constructor-param
 ```
@@ -39,7 +54,7 @@ You will know you came across a custom checker if it contains a link to the guid
 
 In the case of a false positive, use the disable command to remove the pylint error.
 
-**Guidelines that are currently linted:**
+## Rules List
 
 | Pylint checker name                                | How to fix this                                                                                                                                                      | How to disable this rule                                                                 | Link to python guideline                                                                      |
 |----------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
