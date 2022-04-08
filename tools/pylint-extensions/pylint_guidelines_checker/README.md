@@ -34,14 +34,10 @@ Check that you are running pylint version >=2.5.2 and astroid version >=2.4.1.
     ```
 4. Run pylint at the package level using tox and it will find the pylintrc file:
     ```bash
-    C:\azure-sdk-for-python\sdk\storage\azure-storage-blob>tox -c ../../../eng/tox/tox.ini -e lint
-    ```
-5. If you use the pylint extension for VS code or Pycharm it *should* find the pylintrc automatically.
-6. Using the `tox` environment `lint` will make the entire above process automatic.
-    ```bash
     pip install tox tox-monorepo
     C:\azure-sdk-for-python\sdk\storage\azure-storage-blob>tox -e lint -c ../../../eng/tox/tox.ini
     ```
+5. If you use the pylint extension for VS code or Pycharm it *should* find the pylintrc automatically.
 
 ## How to disable a pylint error
 
