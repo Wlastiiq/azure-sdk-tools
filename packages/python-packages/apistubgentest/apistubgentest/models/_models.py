@@ -8,7 +8,6 @@
 
 from azure.core import CaseInsensitiveEnumMeta
 from collections.abc import Sequence
-from dataclasses import dataclass
 from enum import Enum, EnumMeta
 import functools
 from six import with_metaclass
@@ -110,18 +109,6 @@ FakeTypedDict = TypedDict(
 )
 
 
-@dataclass
-class FakeInventoryItemDataClass:
-    """Class for testing @dataclass
-    """
-    name: str
-    unit_price: float
-    quantity_on_hand: int = 0
-
-    def total_cost(self, **kwargs) -> float:
-        return self.unit_price * self.quantity_on_hand
-
-
 class PublicPrivateClass:
 
     public_var: str = "SOMEVAL"
@@ -170,6 +157,10 @@ class SomePoorlyNamedObject:
 
     def __init__(self, name: str):
         self.name = name
+
+
+class SomeAwesomelyNamedObject(SomePoorlyNamedObject):
+    pass
 
 
 class SomethingWithOverloads:

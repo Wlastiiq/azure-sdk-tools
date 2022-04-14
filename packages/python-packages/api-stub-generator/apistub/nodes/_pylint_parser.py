@@ -53,10 +53,7 @@ class PylintParser:
 
     @classmethod
     def parse(cls, path):
-        from apistub import ApiView
-
         pkg_name = os.path.split(path)[-1]
-        logging.debug(f"APIView root path: {ApiView.get_root_path()}")
         (pylint_stdout, pylint_stderr) = epylint.py_run(f"{path} -f json --load-plugins pylint_guidelines_checker", return_std=True)
         stderr_str = pylint_stderr.read()
         # strip put stray, non-json lines from stdout
